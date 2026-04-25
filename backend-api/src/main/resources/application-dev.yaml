@@ -1,0 +1,18 @@
+logging:
+  level:
+    root: INFO
+    hu.projects.expense_tracker: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate: DEBUG
+    org.flywaydb: INFO
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: user
+    password: pw123
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
