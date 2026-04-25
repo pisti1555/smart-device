@@ -36,6 +36,12 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    public PagedList<ApplicationDto> getAll(int page, int size) {
+        var result = applicationRepository.findAll(PageRequest.of(page, size));
+        return PagedList.of(result, app -> mapper.map(app, ApplicationDto.class));
+    }
+
+    @Override
     public PagedList<ApplicationDto> getAllByUsername(String username, int page, int size) {
         var result = applicationRepository.findAllByUsersUsername(username, PageRequest.of(page, size));
         return PagedList.of(result, app -> mapper.map(app, ApplicationDto.class));
@@ -58,8 +64,8 @@ public class ApplicationServiceImpl implements ApplicationService {
         AppUser user = getUserByAuthenticationOrThrow(username);
         AppApplication foundApp = getAppOrThrowNotFound(id);
 
-        user.getApps().remove(foundApp);
-        userRepository.save(user);
+        foundApp.getUsers().remove(user);
+        applicationRepository.save(foundApp);
     }
 
     private AppUser getUserByAuthenticationOrThrow(String username) {

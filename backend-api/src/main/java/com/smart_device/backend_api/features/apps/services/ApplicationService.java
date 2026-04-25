@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public interface ApplicationService {
     ApplicationDto getById(UUID id);
+    PagedList<ApplicationDto> getAll(int page, int size);
     PagedList<ApplicationDto> getAllByUsername(String username, int page, int size);
     ApplicationDto addToUser(UUID id, String username);
     void deleteFromUser(UUID id, String username);
