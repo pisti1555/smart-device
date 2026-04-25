@@ -1,10 +1,7 @@
 package com.smart_device.backend_api.features.images.services.impl;
 
 import com.smart_device.backend_api.app_models.PagedList;
-import com.smart_device.backend_api.common.exceptions.custom_exceptions.BadRequestException;
-import com.smart_device.backend_api.common.exceptions.custom_exceptions.ForbiddenException;
-import com.smart_device.backend_api.common.exceptions.custom_exceptions.NotFoundException;
-import com.smart_device.backend_api.common.exceptions.custom_exceptions.UnexpectedException;
+import com.smart_device.backend_api.common.exceptions.custom_exceptions.*;
 import com.smart_device.backend_api.features.images.dtos.ImageDto;
 import com.smart_device.backend_api.features.images.dtos.UploadImageDto;
 import com.smart_device.backend_api.features.images.entities.AppImage;

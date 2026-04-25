@@ -1,5 +1,7 @@
 package com.smart_device.backend_api.configuration.modelmapper;
 
+import com.smart_device.backend_api.features.apps.dtos.ApplicationDto;
+import com.smart_device.backend_api.features.apps.entities.AppApplication;
 import com.smart_device.backend_api.features.images.dtos.ImageDto;
 import com.smart_device.backend_api.features.images.entities.AppImage;
 import com.smart_device.backend_api.features.users.dtos.UserDto;
@@ -17,6 +19,8 @@ public class ModelMapperConfiguration {
         mapper.typeMap(AppUser.class, UserDto.class);
 
         mapper.typeMap(AppImage.class, ImageDto.class);
+
+        mapper.typeMap(AppApplication.class, ApplicationDto.class);
 
         return mapper;
     }
