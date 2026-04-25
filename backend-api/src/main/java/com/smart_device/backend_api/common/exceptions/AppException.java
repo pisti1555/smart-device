@@ -8,13 +8,13 @@ import java.time.Instant;
 public abstract class AppException extends RuntimeException {
     private final int statusCode;
     private final String title;
-    private final String errorMessage;
+    private final String message;
     private final String timestamp;
 
-    public AppException(int statusCode, String errorMessage) {
+    public AppException(int statusCode, String message) {
         this.statusCode = statusCode;
         this.title = GenerateTitle(statusCode);
-        this.errorMessage = errorMessage;
+        this.message = message;
         this.timestamp = Instant.now().toString();
     }
 
