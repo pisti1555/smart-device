@@ -6,6 +6,7 @@ import com.smart_device.backend_api.features.auth.services.AuthService;
 import com.smart_device.backend_api.features.users.dtos.UserDto;
 import com.smart_device.backend_api.features.users.entities.AppUser;
 import com.smart_device.backend_api.features.users.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,11 +17,13 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
+    private final ModelMapper mapper;
 
     @Autowired
-    public AuthServiceImpl(AuthenticationManager authenticationManager, UserRepository userRepository) {
+    public AuthServiceImpl(AuthenticationManager authenticationManager, UserRepository userRepository, ModelMapper mapper) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -35,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
         AppUser user = userRepository
                 .findByUsername(username)
                 .orElseThrow(() -> new UnexpectedException("Something went wrong on server side."));
-        return new UserDto(user.getId().toString(), user.getUsername());
+
+        return mapper.map(user, UserDto.class);
     }
 }

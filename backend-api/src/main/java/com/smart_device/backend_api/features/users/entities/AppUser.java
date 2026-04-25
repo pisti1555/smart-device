@@ -20,4 +20,7 @@ public class AppUser {
 
     @Column(nullable = false)
     private String password;
+
+    private String activeProfilePicture;
+    private String activeWallpaper;
 }
