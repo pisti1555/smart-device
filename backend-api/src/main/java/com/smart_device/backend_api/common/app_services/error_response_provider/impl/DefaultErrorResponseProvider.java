@@ -1,8 +1,8 @@
-package com.smart_device.backend_api.app_services.error_response_provider.services.impl;
+package com.smart_device.backend_api.common.app_services.error_response_provider.impl;
 
-import com.smart_device.backend_api.app_services.error_response_provider.models.ErrorResponseModel;
-import com.smart_device.backend_api.app_services.error_response_provider.models.ProductionErrorResponseModel;
-import com.smart_device.backend_api.app_services.error_response_provider.services.ErrorResponseProvider;
+import com.smart_device.backend_api.common.app_models.error_responses.ErrorResponseModel;
+import com.smart_device.backend_api.common.app_models.error_responses.ProductionErrorResponseModel;
+import com.smart_device.backend_api.common.app_services.error_response_provider.ErrorResponseProvider;
 import com.smart_device.backend_api.common.exceptions.AppException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;

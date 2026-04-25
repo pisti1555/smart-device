@@ -9,7 +9,7 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:app-db
     username: app_user
     password: app_password
 

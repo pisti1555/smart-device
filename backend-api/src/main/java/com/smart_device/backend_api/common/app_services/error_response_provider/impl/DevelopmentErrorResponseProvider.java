@@ -1,8 +1,8 @@
-package com.smart_device.backend_api.app_services.error_response_provider.services.impl;
+package com.smart_device.backend_api.common.app_services.error_response_provider.impl;
 
-import com.smart_device.backend_api.app_services.error_response_provider.models.DevelopmentErrorResponseModel;
-import com.smart_device.backend_api.app_services.error_response_provider.models.ErrorResponseModel;
-import com.smart_device.backend_api.app_services.error_response_provider.services.ErrorResponseProvider;
+import com.smart_device.backend_api.common.app_models.error_responses.DevelopmentErrorResponseModel;
+import com.smart_device.backend_api.common.app_models.error_responses.ErrorResponseModel;
+import com.smart_device.backend_api.common.app_services.error_response_provider.ErrorResponseProvider;
 import com.smart_device.backend_api.common.exceptions.AppException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;

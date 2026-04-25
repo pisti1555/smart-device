@@ -1,6 +1,6 @@
 package com.smart_device.backend_api.features.apps.services.impl;
 
-import com.smart_device.backend_api.app_models.PagedList;
+import com.smart_device.backend_api.common.app_models.PagedList;
 import com.smart_device.backend_api.common.exceptions.custom_exceptions.NotFoundException;
 import com.smart_device.backend_api.common.exceptions.custom_exceptions.UnexpectedException;
 import com.smart_device.backend_api.features.apps.dtos.ApplicationDto;
@@ -30,7 +30,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationDto getById(String id) {
+    public ApplicationDto getById(UUID id) {
         AppApplication foundApp = getAppOrThrowNotFound(id);
         return mapper.map(foundApp, ApplicationDto.class);
     }
@@ -42,7 +42,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationDto addToUser(String id, String username) {
+    public ApplicationDto addToUser(UUID id, String username) {
         AppApplication foundApp = getAppOrThrowNotFound(id);
         AppUser user = getUserByAuthenticationOrThrow(username);
 
@@ -54,7 +54,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public void deleteFromUser(String id, String username) {
+    public void deleteFromUser(UUID id, String username) {
         AppUser user = getUserByAuthenticationOrThrow(username);
         AppApplication foundApp = getAppOrThrowNotFound(id);
 
@@ -68,9 +68,9 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .orElseThrow(() -> new UnexpectedException("Something went wrong on server side."));
     }
 
-    private AppApplication getAppOrThrowNotFound(String id) {
+    private AppApplication getAppOrThrowNotFound(UUID id) {
         return applicationRepository
-                .findById(UUID.fromString(id))
+                .findById(id)
                 .orElseThrow(() -> new NotFoundException("Application was not found."));
     }
 }

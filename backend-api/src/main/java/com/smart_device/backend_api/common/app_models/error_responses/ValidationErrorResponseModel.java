@@ -1,4 +1,4 @@
-package com.smart_device.backend_api.app_services.error_response_provider.models;
+package com.smart_device.backend_api.common.app_models.error_responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

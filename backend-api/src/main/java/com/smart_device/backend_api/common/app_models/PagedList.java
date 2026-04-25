@@ -1,4 +1,4 @@
-package com.smart_device.backend_api.app_models;
+package com.smart_device.backend_api.common.app_models;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

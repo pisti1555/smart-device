@@ -1,6 +1,6 @@
 package com.smart_device.backend_api.features.images.services.impl;
 
-import com.smart_device.backend_api.app_models.PagedList;
+import com.smart_device.backend_api.common.app_models.PagedList;
 import com.smart_device.backend_api.common.exceptions.custom_exceptions.*;
 import com.smart_device.backend_api.features.images.dtos.ImageDto;
 import com.smart_device.backend_api.features.images.dtos.UploadImageDto;
@@ -16,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.UUID;
 
 @Service
@@ -33,14 +32,12 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public ImageDto getImage(String id, String username) {
+    public ImageDto getImage(UUID id, String username) {
         AppImage foundImage = imageRepository
-                .findById(UUID.fromString(id))
+                .findById(id)
                 .orElseThrow(() -> new NotFoundException("Image was not found."));
 
-        if (!foundImage.getOwnerUser().getUsername().equals(username)) {
-            throw new ForbiddenException("You are not allowed to view this image.");
-        }
+        throwForbiddenIfUserIsNotOwner(foundImage, username);
 
         return mapper.map(foundImage, ImageDto.class);
     }
@@ -53,9 +50,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageDto save(UploadImageDto dto, String username) {
-        AppUser user = userRepository
-                .findByUsername(username)
-                .orElseThrow(() ->new UnexpectedException("Something went wrong on server side."));
+        AppUser user = getUserByAuthenticationOrThrow(username);
         AppImage image = new AppImage();
 
         image.setOwnerUser(user);
@@ -69,15 +64,25 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void delete(String id, String username) {
+    public void delete(UUID id, String username) {
         AppImage foundImage = imageRepository
-                .findById(UUID.fromString(id))
+                .findById(id)
                 .orElseThrow(() -> new NotFoundException("Image was not found."));
 
-        if (!foundImage.getOwnerUser().getUsername().equals(username)) {
-            throw new ForbiddenException("You are not allowed to delete this image.");
-        }
+        throwForbiddenIfUserIsNotOwner(foundImage, username);
 
         imageRepository.delete(foundImage);
+    }
+
+    private AppUser getUserByAuthenticationOrThrow(String username) {
+        return userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new UnexpectedException("Something went wrong on server side."));
+    }
+
+    private void throwForbiddenIfUserIsNotOwner(AppImage image, String username) {
+        if (!image.getOwnerUser().getUsername().equals(username)) {
+            throw new ForbiddenException("You are not allowed to make this request.");
+        }
     }
 }
