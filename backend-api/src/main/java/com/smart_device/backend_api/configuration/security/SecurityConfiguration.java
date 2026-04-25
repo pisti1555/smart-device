@@ -1,7 +1,5 @@
 package com.smart_device.backend_api.configuration.security;
 
-import com.smart_device.backend_api.configuration.security.entities.UserDetailsImpl;
-import com.smart_device.backend_api.features.users.entities.AppUser;
 import com.smart_device.backend_api.features.users.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,12 +41,8 @@ public class SecurityConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> {
-            AppUser user = userRepository
-                    .findByUsername(username)
-                    .orElseThrow(() -> new UsernameNotFoundException(username));
-
-            return new UserDetailsImpl(user.getUsername(), user.getPassword());
-        };
+        return username -> userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }

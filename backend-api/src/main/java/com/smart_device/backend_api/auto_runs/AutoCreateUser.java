@@ -20,6 +20,6 @@ public class AutoCreateUser {
 
     @PostConstruct
     public void init(){
-        userService.save(new SaveUserDto("testName", passwordEncoder.encode("testPw")));
+        userService.save(new SaveUserDto("user", passwordEncoder.encode("password")));
     }
 }

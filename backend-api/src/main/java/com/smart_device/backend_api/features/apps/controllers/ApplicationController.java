@@ -29,7 +29,7 @@ public class ApplicationController {
     }
 
     @GetMapping
-    public PagedList<ApplicationDto> getApplicationsOfUser(Pageable pageable, Authentication authentication) {
+    public PagedList<ApplicationDto> getApplications(Pageable pageable, Authentication authentication) {
         return applicationService.getAllByUsername(authentication.getName(), pageable.getPageNumber(), pageable.getPageSize());
     }
 
