@@ -2,14 +2,15 @@ package com.smart_device.backend_api.features.images.controllers;
 
 import com.smart_device.backend_api.app_models.PagedList;
 import com.smart_device.backend_api.features.images.dtos.ImageDto;
+import com.smart_device.backend_api.features.images.dtos.UploadImageDto;
 import com.smart_device.backend_api.features.images.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/images")
@@ -22,12 +23,26 @@ public class ImageController {
     }
 
     @GetMapping("/{id}")
-    public ImageDto getImage(@PathVariable String id) {
-        return imageService.getById(id);
+    public ImageDto getImage(@PathVariable String id, Authentication authentication) {
+        return imageService.getImage(id, authentication.getName());
     }
 
     @GetMapping
     public PagedList<ImageDto> getImagesOfUser(Authentication authentication, Pageable pageable) {
         return imageService.getPagedByUsername(authentication.getName(), pageable.getPageNumber(), pageable.getPageSize());
+    }
+
+    @PostMapping
+    public ResponseEntity<ImageDto> uploadImage(@RequestBody UploadImageDto dto, Authentication authentication) {
+        ImageDto createdImage = imageService.save(dto, authentication.getName());
+        return ResponseEntity
+                .created(URI.create("/api/images/" + createdImage.getId()))
+                .body(createdImage);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteImage(@PathVariable String id, Authentication authentication) {
+        imageService.delete(id, authentication.getName());
+        return ResponseEntity.ok().build();
     }
 }
