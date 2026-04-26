@@ -19,6 +19,7 @@ public class LoginFeature implements Feature<LoginHandler> {
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("You are unauthenticated. Please login!");
         System.out.print("Username: ");
         String username = scanner.nextLine();
 
@@ -29,8 +30,10 @@ public class LoginFeature implements Feature<LoginHandler> {
         var result = loginHandler.handle(loginRequest);
 
         if (result.isSuccess()) {
-            System.out.println("Login successful!");
             authentication.setUser(result.getData());
+            authentication.setCredentials(username, password);
+
+            System.out.println("Login successful!");
             System.out.println(authentication.getUser());
         } else {
             result.printErrorMessage();

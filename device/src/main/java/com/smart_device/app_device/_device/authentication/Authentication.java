@@ -6,6 +6,9 @@ public interface Authentication {
     boolean isAuthenticated();
     String getName();
 
+    Credentials getCredentials();
+    void setCredentials(String username, String password);
+
     UserModel getUser();
     void setUser(UserModel user);
 }
