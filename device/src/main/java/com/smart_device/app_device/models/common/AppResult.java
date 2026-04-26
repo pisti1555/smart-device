@@ -42,4 +42,15 @@ public final class AppResult<T> {
         if (errorMessage == null) return;
         System.out.println(errorMessage + "\n");
     }
+
+    public void printFieldErrors() {
+        if (errors == null) return;
+
+        System.out.println("Errors:");
+        errors.forEach((field, errorsOnField) -> {
+            System.out.println(field + ":");
+            errorsOnField.forEach(System.out::println);
+        });
+        System.out.println("\n");
+    }
 }

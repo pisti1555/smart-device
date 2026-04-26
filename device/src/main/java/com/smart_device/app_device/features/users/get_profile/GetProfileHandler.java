@@ -1,4 +1,4 @@
-package com.smart_device.app_device.features.auth.login;
+package com.smart_device.app_device.features.users.get_profile;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.smart_device.app_device.features._common.RemoteRequestHandler;
@@ -9,17 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginHandler implements RemoteRequestHandler<LoginRequest, UserModel> {
+public class GetProfileHandler implements RemoteRequestHandler<GetProfileRequest, UserModel> {
     private final Communicator communicator;
 
     @Autowired
-    public LoginHandler(Communicator communicator) {
+    public GetProfileHandler(Communicator communicator) {
         this.communicator = communicator;
     }
 
     @Override
-    public AppResult<UserModel> handle(LoginRequest request) {
-        String loginUrl = "/auth/login";
-        return communicator.POST(loginUrl, request, new TypeReference<>() {});
+    public AppResult<UserModel> handle(GetProfileRequest request) {
+        String getProfileUrl = "/users";
+        return communicator.GET(getProfileUrl, new TypeReference<>() {});
     }
 }

@@ -45,6 +45,9 @@ public class UserServiceImpl implements UserService {
         AppUser user = getUserByUsernameOrThrow(username);
 
         if (dto.password() != null && !dto.password().isBlank()) {
+            if (dto.password().length() < 6 || dto.password().length() > 100) {
+                throw new BadRequestException("Password must be between 6 and 100 characters.");
+            }
             user.setPassword(passwordEncoder.encode(dto.password()));
         }
 
