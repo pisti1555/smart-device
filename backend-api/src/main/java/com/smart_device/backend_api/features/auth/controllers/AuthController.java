@@ -6,6 +6,7 @@ import com.smart_device.backend_api.features.auth.services.AuthService;
 import com.smart_device.backend_api.features.users.dtos.UserDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @Secured("ROLE_ADMIN")
     public UserDto register(@RequestBody @Valid RegistrationDto dto) {
         return authService.register(dto);
     }

@@ -1,7 +1,12 @@
-INSERT INTO roles(role) VALUES('ROLE_USER'), ('ROLE_ADMIN');
+INSERT INTO roles(role)
+    VALUES
+        ('ROLE_ADMIN'),
+        ('ROLE_USER');
 
 INSERT INTO apps(name, icon_url)
     VALUES
+        ('Recipes', 'recipes-icon'),
+        ('Calorie counter', 'cal-counter-icon'),
         ('PDF Reader', 'pdf-reader-icon'),
         ('Waze GPS', 'waze-icon'),
         ('QR Code scanner', 'qr-scanner-icon'),
