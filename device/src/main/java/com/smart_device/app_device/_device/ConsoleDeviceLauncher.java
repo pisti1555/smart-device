@@ -5,6 +5,7 @@ import com.smart_device.app_device._device.input.ConsoleInput;
 import com.smart_device.app_device._device.input.InputOption;
 import com.smart_device.app_device._device.screens.ScreenNavigator;
 import com.smart_device.app_device.features.auth.login.LoginFeature;
+import com.smart_device.app_device.features.images.ImageFeature;
 import com.smart_device.app_device.features.images.get_images.GetImagesFeature;
 import com.smart_device.app_device.features.users.get_profile.GetProfileFeature;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ public class ConsoleDeviceLauncher implements DeviceLauncher {
     private final Authentication authentication;
     private final LoginFeature loginFeature;
     private final GetProfileFeature getProfileFeature;
-    private final GetImagesFeature getImagesFeature;
+    private final ImageFeature imageFeature;
 
     @Autowired
-    public ConsoleDeviceLauncher(Authentication authentication, LoginFeature loginFeature, GetProfileFeature getProfileFeature, GetImagesFeature getImagesFeature) {
+    public ConsoleDeviceLauncher(Authentication authentication, LoginFeature loginFeature, GetProfileFeature getProfileFeature, ImageFeature imageFeature) {
         this.authentication = authentication;
         this.loginFeature = loginFeature;
         this.getProfileFeature = getProfileFeature;
-        this.getImagesFeature = getImagesFeature;
+        this.imageFeature = imageFeature;
     }
 
     @Override
@@ -56,7 +57,7 @@ public class ConsoleDeviceLauncher implements DeviceLauncher {
             case "exit" -> System.exit(0);
             case "profile" -> ScreenNavigator.navigateForward(getProfileFeature);
             //case "apps" -> ScreenNavigator.navigateForward(screenFactory.appsScreen());
-            case "images" -> ScreenNavigator.navigateForward(getImagesFeature);
+            case "images" -> ScreenNavigator.navigateForward(imageFeature);
         }
     }
 }

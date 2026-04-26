@@ -1,7 +1,7 @@
 package com.smart_device.app_device.features.images.get_images;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.smart_device.app_device.features._common.RequestHandler;
+import com.smart_device.app_device.features._common.RemoteRequestHandler;
 import com.smart_device.app_device.models.ImageModel;
 import com.smart_device.app_device.models.common.AppResult;
 import com.smart_device.app_device.models.common.PagedList;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GetImagesHandler implements RequestHandler<GetImagesRequest, PagedList<ImageModel>> {
+public class GetImagesHandler implements RemoteRequestHandler<GetImagesRequest, PagedList<ImageModel>> {
     private final Communicator communicator;
 
     @Autowired

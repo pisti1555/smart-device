@@ -1,11 +1,9 @@
 package com.smart_device.app_device._device.screens;
 
-import com.smart_device.app_device.features._common.Feature;
-
 import java.util.Stack;
 
 public class ScreenNavigator {
-    private static final Stack<Feature<?>> SCREENS_OPEN = new Stack<>();
+    private static final Stack<Screen> SCREENS_OPEN = new Stack<>();
 
     public static void showCurrent() {
         if (!SCREENS_OPEN.isEmpty()) {
@@ -13,7 +11,7 @@ public class ScreenNavigator {
         }
     }
 
-    public static void navigateForward(Feature<?> screen) {
+    public static void navigateForward(Screen screen) {
         SCREENS_OPEN.push(screen);
         showCurrent();
     }

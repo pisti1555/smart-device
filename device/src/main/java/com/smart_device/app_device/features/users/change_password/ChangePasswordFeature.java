@@ -4,7 +4,7 @@ import com.smart_device.app_device._device.authentication.Authentication;
 import com.smart_device.app_device._device.input.ConsoleInput;
 import com.smart_device.app_device._device.input.InputOption;
 import com.smart_device.app_device._device.screens.ScreenNavigator;
-import com.smart_device.app_device.features._common.Feature;
+import com.smart_device.app_device.features._common.RemoteFeature;
 import com.smart_device.app_device.models.UserModel;
 import com.smart_device.app_device.models.common.AppResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Service
-public class ChangePasswordFeature implements Feature<ChangePasswordHandler> {
+public class ChangePasswordFeature implements RemoteFeature<ChangePasswordHandler> {
     private final Authentication  authentication;
     private final ChangePasswordHandler changePasswordHandler;
 

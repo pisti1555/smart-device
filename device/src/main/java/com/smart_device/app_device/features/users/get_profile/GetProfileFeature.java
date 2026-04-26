@@ -3,7 +3,7 @@ package com.smart_device.app_device.features.users.get_profile;
 import com.smart_device.app_device._device.input.ConsoleInput;
 import com.smart_device.app_device._device.input.InputOption;
 import com.smart_device.app_device._device.screens.ScreenNavigator;
-import com.smart_device.app_device.features._common.Feature;
+import com.smart_device.app_device.features._common.RemoteFeature;
 import com.smart_device.app_device.features.users.change_password.ChangePasswordFeature;
 import com.smart_device.app_device.models.UserModel;
 import com.smart_device.app_device.models.common.AppResult;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GetProfileFeature implements Feature<GetProfileHandler> {
+public class GetProfileFeature implements RemoteFeature<GetProfileHandler> {
     private final GetProfileHandler getProfileHandler;
     private final ChangePasswordFeature  changePasswordFeature;
 

@@ -24,15 +24,16 @@ public final class PagedList<T> {
 
         sb.append("\nPaged list:\n")
                 .append("Page: ").append(page)
-                .append(", Size: ").append(size).append("\n")
-                .append("Total pages: ").append(totalPages)
+                .append(", Size: ").append(size)
+                .append(", Total pages: ").append(totalPages)
                 .append(", Total items: ").append(totalItems).append("\n")
                 .append("Items:\n");
 
         if (items != null && !items.isEmpty()) {
-            int index = 1;
             for (var item : items) {
-                sb.append(index++).append(" -> ").append(item.toString()).append("\n");
+                sb.append("------------------------------------------------------------------------------------------------\n");
+                sb.append(item.toString()).append("\n");
+                sb.append("------------------------------------------------------------------------------------------------\n");
             }
         } else {
             sb.append("No items.");

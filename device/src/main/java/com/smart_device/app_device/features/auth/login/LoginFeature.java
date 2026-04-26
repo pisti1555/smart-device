@@ -1,13 +1,13 @@
 package com.smart_device.app_device.features.auth.login;
 
 import com.smart_device.app_device._device.authentication.Authentication;
-import com.smart_device.app_device.features._common.Feature;
+import com.smart_device.app_device.features._common.RemoteFeature;
 import org.springframework.stereotype.Service;
 
 import java.util.Scanner;
 
 @Service
-public class LoginFeature implements Feature<LoginHandler> {
+public class LoginFeature implements RemoteFeature<LoginHandler> {
     private final LoginHandler loginHandler;
     private final Authentication authentication;
 

@@ -95,6 +95,10 @@ public class BackendApiCommunicator implements Communicator {
                 return handleError(jsonRoot);
             }
 
+            if (response.body() == null || response.body().isBlank()) {
+                return AppResult.success(null);
+            }
+
             ReturnType result = mapper.readValue(response.body(), type);
 
             return AppResult.success(result);

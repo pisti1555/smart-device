@@ -26,4 +26,19 @@ public class ConsoleInput {
             }
         }
     }
+
+    public static int numberInput() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("---------------------- Number input ----------------------");
+            try {
+                System.out.print("Input number: ");
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please try again.");
+                scanner.nextLine();
+            }
+        }
+    }
 }
