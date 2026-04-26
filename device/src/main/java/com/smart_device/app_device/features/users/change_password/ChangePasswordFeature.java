@@ -1,6 +1,7 @@
 package com.smart_device.app_device.features.users.change_password;
 
 import com.smart_device.app_device._device.authentication.Authentication;
+import com.smart_device.app_device._device.authentication.Credentials;
 import com.smart_device.app_device._device.input.ConsoleInput;
 import com.smart_device.app_device._device.input.InputOption;
 import com.smart_device.app_device._device.screens.ScreenNavigator;
@@ -35,7 +36,7 @@ public class ChangePasswordFeature implements RemoteFeature<ChangePasswordHandle
         AppResult<UserModel> result = changePasswordHandler.handle(new ChangePasswordRequest(newPassword));
 
         if (result.isSuccess()) {
-            authentication.setCredentials(authentication.getName(), newPassword);
+            authentication.setCredentials(new Credentials(authentication.getName(),  newPassword));
             System.out.println("Password changed.");
         } else {
             result.printErrorMessage();

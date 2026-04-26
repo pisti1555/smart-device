@@ -24,8 +24,8 @@ public class AuthenticationImpl implements Authentication {
     }
 
     @Override
-    public void setCredentials(String username, String password) {
-        this.credentials = new Credentials(username, password);
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.smart_device.app_device.features.auth.login;
 
 import com.smart_device.app_device._device.authentication.Authentication;
+import com.smart_device.app_device._device.authentication.Credentials;
 import com.smart_device.app_device.features._common.RemoteFeature;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class LoginFeature implements RemoteFeature<LoginHandler> {
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("You are unauthenticated. Please login!");
+        System.out.println("\nYou are unauthenticated. Please login!");
         System.out.print("Username: ");
         String username = scanner.nextLine();
 
@@ -31,7 +32,8 @@ public class LoginFeature implements RemoteFeature<LoginHandler> {
 
         if (result.isSuccess()) {
             authentication.setUser(result.getData());
-            authentication.setCredentials(username, password);
+
+            authentication.setCredentials(new Credentials(username, password));
 
             System.out.println("Login successful!");
         } else {

@@ -7,7 +7,7 @@ public interface Authentication {
     String getName();
 
     Credentials getCredentials();
-    void setCredentials(String username, String password);
+    void setCredentials(Credentials credentials);
 
     UserModel getUser();
     void setUser(UserModel user);
