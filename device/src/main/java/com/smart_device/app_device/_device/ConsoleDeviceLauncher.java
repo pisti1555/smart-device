@@ -43,6 +43,7 @@ public class ConsoleDeviceLauncher implements DeviceLauncher {
             if (!authentication.isAuthenticated()) {
                 login();
             }
+            printWallpaper();
             mainMenu();
         }
     }
@@ -50,6 +51,15 @@ public class ConsoleDeviceLauncher implements DeviceLauncher {
     private void login() {
         while(!authentication.isAuthenticated()) {
             loginFeature.run();
+        }
+    }
+
+    private void printWallpaper() {
+        System.out.println("\n---- WALLPAPER ----");
+        if (authentication.getUser() != null && authentication.getUser().getActiveWallpaper() != null) {
+            System.out.println(authentication.getUser().getActiveWallpaper().getUrl());
+        } else {
+            System.out.println("Default wallpaper");
         }
     }
 

@@ -2,8 +2,6 @@ package com.smart_device.app_device.features.users.change_password;
 
 import com.smart_device.app_device._device.authentication.Authentication;
 import com.smart_device.app_device._device.authentication.Credentials;
-import com.smart_device.app_device._device.input.ConsoleInput;
-import com.smart_device.app_device._device.input.InputOption;
 import com.smart_device.app_device._device.screens.ScreenNavigator;
 import com.smart_device.app_device.features._common.RemoteFeature;
 import com.smart_device.app_device.models.UserModel;
@@ -11,7 +9,6 @@ import com.smart_device.app_device.models.common.AppResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Scanner;
 
 @Service
@@ -40,21 +37,8 @@ public class ChangePasswordFeature implements RemoteFeature<ChangePasswordHandle
             System.out.println("Password changed.");
         } else {
             result.printErrorMessage();
-            ScreenNavigator.navigateBack();
         }
 
-        selectOption();
-    }
-
-    private void selectOption() {
-        List<InputOption> options = List.of(
-                InputOption.create("back", "Go back")
-        );
-
-        String option = ConsoleInput.optionsInput(options);
-
-        if (option.equals("back")) {
-            ScreenNavigator.navigateBack();
-        }
+        ScreenNavigator.navigateBack();
     }
 }
