@@ -9,7 +9,7 @@ public class ConsoleInput {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Options:");
+            System.out.println("---------------------- Options ----------------------");
             options.forEach(o -> System.out.println(o.getValue() + " -> " + o.getLabel()));
 
             System.out.print("Option: ");

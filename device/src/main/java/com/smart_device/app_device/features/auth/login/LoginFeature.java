@@ -34,7 +34,6 @@ public class LoginFeature implements Feature<LoginHandler> {
             authentication.setCredentials(username, password);
 
             System.out.println("Login successful!");
-            System.out.println(authentication.getUser());
         } else {
             result.printErrorMessage();
         }
