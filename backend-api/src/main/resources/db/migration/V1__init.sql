@@ -40,7 +40,6 @@ CREATE TABLE IF NOT EXISTS images (
     updated_at TIMESTAMP DEFAULT now() NOT NULL,
     url VARCHAR(300),
     owner_user_id UUID NOT NULL,
-    type VARCHAR(50) NOT NULL,
     CONSTRAINT fk_images_owner_user_id FOREIGN KEY (owner_user_id) REFERENCES users(id)
 );
 

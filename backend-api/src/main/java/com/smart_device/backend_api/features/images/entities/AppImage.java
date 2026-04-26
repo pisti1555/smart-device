@@ -1,7 +1,6 @@
 package com.smart_device.backend_api.features.images.entities;
 
 import com.smart_device.backend_api.common.bases.AppEntity;
-import com.smart_device.backend_api.features.images.enums.ImageType;
 import com.smart_device.backend_api.features.users.entities.AppUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,4 @@ public class AppImage extends AppEntity {
     @ManyToOne
     @JoinColumn(name = "owner_user_id")
     private AppUser ownerUser;
-
-    @Enumerated(value = EnumType.STRING)
-    private ImageType type;
 }

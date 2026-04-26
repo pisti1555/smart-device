@@ -5,7 +5,6 @@ import com.smart_device.backend_api.common.exceptions.custom_exceptions.*;
 import com.smart_device.backend_api.features.images.dtos.ImageDto;
 import com.smart_device.backend_api.features.images.dtos.UploadImageDto;
 import com.smart_device.backend_api.features.images.entities.AppImage;
-import com.smart_device.backend_api.features.images.enums.ImageType;
 import com.smart_device.backend_api.features.images.repositories.ImageRepository;
 import com.smart_device.backend_api.features.images.services.ImageService;
 import com.smart_device.backend_api.features.users.entities.AppUser;
@@ -53,7 +52,6 @@ public class ImageServiceImpl implements ImageService {
 
         image.setOwnerUser(user);
         image.setUrl(dto.getUrl());
-        image.setType(ImageType.createFromType(dto.getType()));
 
         AppImage savedImage = imageRepository.save(image);
 
@@ -77,12 +75,7 @@ public class ImageServiceImpl implements ImageService {
 
         throwForbiddenIfUserIsNotOwner(foundImage, user.getUsername());
 
-        if (!foundImage.getType().equals(ImageType.PROFILE_PICTURE)) {
-            throw new BadRequestException("Could not set active profile image.");
-        }
-
         user.setActiveProfilePicture(foundImage);
-
         userRepository.save(user);
     }
 
@@ -92,12 +85,7 @@ public class ImageServiceImpl implements ImageService {
 
         throwForbiddenIfUserIsNotOwner(foundImage, user.getUsername());
 
-        if (!foundImage.getType().equals(ImageType.WALLPAPER)) {
-            throw new BadRequestException("Could not set active wallpaper.");
-        }
-
         user.setActiveWallpaper(foundImage);
-
         userRepository.save(user);
     }
 
