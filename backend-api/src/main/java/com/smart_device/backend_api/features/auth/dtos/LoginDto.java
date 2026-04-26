@@ -1,13 +1,11 @@
 package com.smart_device.backend_api.features.auth.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
 
-@NoArgsConstructor @AllArgsConstructor
-@Getter @Setter
-public class LoginDto {
-    private String username;
-    private String password;
-}
+public record LoginDto(
+        @NotBlank(message = "Username must not be blank.")
+        String username,
+
+        @NotBlank(message = "Password must not be blank.")
+        String password
+) {}
