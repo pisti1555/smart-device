@@ -1,7 +1,6 @@
 server:
   port: 8080
 
-
 spring:
   profiles:
     active: dev
@@ -16,3 +15,14 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        max-page-size: 20
+        default-page-size: 5
+        page-parameter: page
+        size-parameter: size
+      sort:
+        sort-parameter: sort
