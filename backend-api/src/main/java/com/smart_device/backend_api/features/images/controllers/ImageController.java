@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,7 @@ public class ImageController {
     }
 
     @PostMapping
+    @Secured("ROLE_USER")
     public ResponseEntity<ImageDto> uploadImage(@RequestBody @Valid UploadImageDto dto, Authentication authentication) {
         ImageDto createdImage = imageService.save(dto, authentication.getName());
         return ResponseEntity
@@ -43,6 +45,7 @@ public class ImageController {
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_USER")
     public ResponseEntity<Void> deleteImage(@PathVariable UUID id, Authentication authentication) {
         imageService.delete(id, authentication.getName());
         return ResponseEntity.noContent().build();

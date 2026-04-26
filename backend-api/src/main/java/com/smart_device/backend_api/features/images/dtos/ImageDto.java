@@ -10,5 +10,4 @@ import lombok.Setter;
 @Getter @Setter
 public class ImageDto extends AppDto {
     private String url;
-    private String type;
 }

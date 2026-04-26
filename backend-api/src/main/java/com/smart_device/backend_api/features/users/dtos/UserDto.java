@@ -1,6 +1,7 @@
 package com.smart_device.backend_api.features.users.dtos;
 
 import com.smart_device.backend_api.common.bases.AppDto;
+import com.smart_device.backend_api.features.images.dtos.ImageDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,15 @@ import java.util.UUID;
 public class UserDto extends AppDto {
     @Setter
     private String username;
+
+    @Setter
+    private ImageDto activeProfilePicture;
+
+    @Setter
+    private ImageDto activeWallpaper;
+
+    @Setter
+    private boolean childAccount;
 
     private List<String> roles;
 

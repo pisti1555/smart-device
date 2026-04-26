@@ -11,7 +11,4 @@ import lombok.Setter;
 public class UploadImageDto {
     @NotBlank(message = "Image URL must not be blank.")
     private String url;
-
-    @NotBlank(message = "Image type must not be blank.")
-    private String type;
 }

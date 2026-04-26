@@ -1,6 +1,7 @@
 package com.smart_device.backend_api.features.apps.services.impl;
 
 import com.smart_device.backend_api.common.app_models.PagedList;
+import com.smart_device.backend_api.common.exceptions.custom_exceptions.ForbiddenException;
 import com.smart_device.backend_api.common.exceptions.custom_exceptions.NotFoundException;
 import com.smart_device.backend_api.common.exceptions.custom_exceptions.UnexpectedException;
 import com.smart_device.backend_api.features.apps.dtos.ApplicationDto;
@@ -51,6 +52,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     public ApplicationDto addToUser(UUID id, String username) {
         AppApplication foundApp = getAppOrThrowNotFound(id);
         AppUser user = getUserByAuthenticationOrThrow(username);
+
+        if (user.isChildAccount() && foundApp.isAdultOnly()) {
+            throw new ForbiddenException("Adding this app to your library requires an adult account.");
+        }
 
         foundApp.getUsers().add(user);
 

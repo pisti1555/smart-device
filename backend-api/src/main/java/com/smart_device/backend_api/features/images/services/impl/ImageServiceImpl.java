@@ -5,7 +5,6 @@ import com.smart_device.backend_api.common.exceptions.custom_exceptions.*;
 import com.smart_device.backend_api.features.images.dtos.ImageDto;
 import com.smart_device.backend_api.features.images.dtos.UploadImageDto;
 import com.smart_device.backend_api.features.images.entities.AppImage;
-import com.smart_device.backend_api.features.images.enums.ImageType;
 import com.smart_device.backend_api.features.images.repositories.ImageRepository;
 import com.smart_device.backend_api.features.images.services.ImageService;
 import com.smart_device.backend_api.features.users.entities.AppUser;
@@ -33,9 +32,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageDto getImage(UUID id, String username) {
-        AppImage foundImage = imageRepository
-                .findById(id)
-                .orElseThrow(() -> new NotFoundException("Image was not found."));
+        AppImage foundImage = getImageOrThrowNotFound(id);
 
         throwForbiddenIfUserIsNotOwner(foundImage, username);
 
@@ -50,12 +47,11 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageDto save(UploadImageDto dto, String username) {
-        AppUser user = getUserByAuthenticationOrThrow(username);
+        AppUser user = getUserByAuthenticationOrThrowUnexpected(username);
         AppImage image = new AppImage();
 
         image.setOwnerUser(user);
         image.setUrl(dto.getUrl());
-        image.setType(ImageType.createFromType(dto.getType()));
 
         AppImage savedImage = imageRepository.save(image);
 
@@ -73,7 +69,33 @@ public class ImageServiceImpl implements ImageService {
         imageRepository.delete(foundImage);
     }
 
-    private AppUser getUserByAuthenticationOrThrow(String username) {
+    @Override
+    public void setActiveProfileImage(UUID id, AppUser user) {
+        AppImage foundImage = getImageOrThrowNotFound(id);
+
+        throwForbiddenIfUserIsNotOwner(foundImage, user.getUsername());
+
+        user.setActiveProfilePicture(foundImage);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void setActiveWallpaper(UUID id, AppUser user) {
+        AppImage foundImage = getImageOrThrowNotFound(id);
+
+        throwForbiddenIfUserIsNotOwner(foundImage, user.getUsername());
+
+        user.setActiveWallpaper(foundImage);
+        userRepository.save(user);
+    }
+
+    private AppImage getImageOrThrowNotFound(UUID id) {
+        return imageRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundException("Image was not found."));
+    }
+
+    private AppUser getUserByAuthenticationOrThrowUnexpected(String username) {
         return userRepository
                 .findByUsername(username)
                 .orElseThrow(() -> new UnexpectedException("Something went wrong on server side."));

@@ -3,6 +3,7 @@ package com.smart_device.backend_api.features.images.services;
 import com.smart_device.backend_api.common.app_models.PagedList;
 import com.smart_device.backend_api.features.images.dtos.ImageDto;
 import com.smart_device.backend_api.features.images.dtos.UploadImageDto;
+import com.smart_device.backend_api.features.users.entities.AppUser;
 
 import java.util.UUID;
 
@@ -11,4 +12,6 @@ public interface ImageService {
     PagedList<ImageDto> getPagedByUsername(String username, int page, int size);
     ImageDto save(UploadImageDto dto, String username);
     void delete(UUID id, String username);
+    void setActiveProfileImage(UUID id, AppUser user);
+    void setActiveWallpaper(UUID id, AppUser user);
 }

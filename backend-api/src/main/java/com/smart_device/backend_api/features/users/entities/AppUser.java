@@ -24,6 +24,9 @@ public class AppUser extends AppEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "child_account", nullable = false)
+    private boolean childAccount;
+
     @OneToOne
     @JoinColumn(name = "active_profile_picture_id")
     private AppImage activeProfilePicture;

@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface RoleRepository extends AppRepository<AppRole> {
     String ROLE_USER = "ROLE_USER";
     String ROLE_ADMIN = "ROLE_ADMIN";
+    String ROLE_CHILD = "ROLE_CHILD";
 
     Optional<AppRole> findByRole(String role);
 }
