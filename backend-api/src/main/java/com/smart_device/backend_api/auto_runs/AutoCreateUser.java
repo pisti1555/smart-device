@@ -1,25 +1,23 @@
 package com.smart_device.backend_api.auto_runs;
 
-import com.smart_device.backend_api.features.users.dtos.SaveUserDto;
-import com.smart_device.backend_api.features.users.services.UserService;
+import com.smart_device.backend_api.features.auth.dtos.RegistrationDto;
+import com.smart_device.backend_api.features.auth.services.AuthService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AutoCreateUser {
-    private final PasswordEncoder passwordEncoder;
-    private final UserService userService;
+    private final AuthService authService;
 
     @Autowired
-    public AutoCreateUser(PasswordEncoder passwordEncoder, UserService userService) {
-        this.passwordEncoder = passwordEncoder;
-        this.userService = userService;
+    public AutoCreateUser(AuthService authService) {
+        this.authService = authService;
     }
 
     @PostConstruct
     public void init(){
-        userService.save(new SaveUserDto("user", passwordEncoder.encode("password")));
+        var dto = new RegistrationDto("user", "password", "password");
+        authService.register(dto);
     }
 }

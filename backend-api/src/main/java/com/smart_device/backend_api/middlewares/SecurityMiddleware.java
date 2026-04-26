@@ -17,7 +17,7 @@ public class SecurityMiddleware {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
                         request
-                                .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/auth/*").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

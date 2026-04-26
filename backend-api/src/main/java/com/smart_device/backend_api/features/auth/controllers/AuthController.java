@@ -1,6 +1,7 @@
 package com.smart_device.backend_api.features.auth.controllers;
 
 import com.smart_device.backend_api.features.auth.dtos.LoginDto;
+import com.smart_device.backend_api.features.auth.dtos.RegistrationDto;
 import com.smart_device.backend_api.features.auth.services.AuthService;
 import com.smart_device.backend_api.features.users.dtos.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class AuthController {
 
     @PostMapping("/login")
     public UserDto login(@RequestBody LoginDto dto) {
-        return authService.login(dto.getUsername(), dto.getPassword());
+        return authService.login(dto);
+    }
+
+    @PostMapping("/register")
+    public UserDto register(@RequestBody RegistrationDto dto) {
+        return authService.register(dto);
     }
 }

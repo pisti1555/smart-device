@@ -6,4 +6,8 @@ public class UnexpectedException extends AppException {
     public UnexpectedException(String errorMessage) {
         super(500, errorMessage);
     }
+
+    public UnexpectedException() {
+        super(500, "Something went wrong on server side.");
+    }
 }

@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Entity @Table(name = "users")
 @NoArgsConstructor
@@ -45,7 +44,7 @@ public class AppUser extends AppEntity implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false)
     )
-    private Set<AppRole> roles;
+    private List<AppRole> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

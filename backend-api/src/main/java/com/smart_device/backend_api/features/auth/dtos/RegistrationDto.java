@@ -1,4 +1,4 @@
-package com.smart_device.backend_api.features.users.dtos;
+package com.smart_device.backend_api.features.auth.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,8 @@ import lombok.Setter;
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
-public class SaveUserDto {
+public class RegistrationDto {
     private String username;
     private String password;
+    private String repeatPassword;
 }
