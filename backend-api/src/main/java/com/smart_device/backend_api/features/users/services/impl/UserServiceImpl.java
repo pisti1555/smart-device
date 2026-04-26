@@ -58,6 +58,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(password));
         user.setRoles(roles);
 
+        if (roleNames.contains(RoleRepository.ROLE_CHILD)) {
+            user.setChildAccount(true);
+        }
+
         return userRepository.save(user);
     }
 

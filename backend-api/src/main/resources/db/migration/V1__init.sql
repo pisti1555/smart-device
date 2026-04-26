@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT now() NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(300) NOT NULL,
+    child_account BOOLEAN NOT NULL,
     active_profile_picture_id UUID,
     active_wallpaper_image_id UUID
 );
@@ -28,7 +29,9 @@ CREATE TABLE IF NOT EXISTS apps (
     created_at TIMESTAMP DEFAULT now() NOT NULL,
     updated_at TIMESTAMP DEFAULT now() NOT NULL,
     name VARCHAR(100) NOT NULL,
-    icon_url VARCHAR(300)
+    icon_url VARCHAR(300),
+    category VARCHAR(50),
+    adult_only BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS images (

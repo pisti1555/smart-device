@@ -12,4 +12,6 @@ import lombok.Setter;
 public class ApplicationDto extends AppDto {
     private String name;
     private String iconUrl;
+    private String category;
+    private boolean adultOnly;
 }

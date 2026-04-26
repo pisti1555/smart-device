@@ -1,6 +1,7 @@
 package com.smart_device.backend_api.features.apps.entities;
 
 import com.smart_device.backend_api.common.bases.AppEntity;
+import com.smart_device.backend_api.features.apps.enums.ApplicationCategory;
 import com.smart_device.backend_api.features.users.entities.AppUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,12 @@ public class AppApplication extends AppEntity {
 
     @Column(name = "icon_url")
     private String iconUrl;
+
+    @Enumerated(EnumType.STRING)
+    private ApplicationCategory category;
+
+    @Column(name = "adult_only")
+    private boolean adultOnly;
 
     @ManyToMany
     @JoinTable(

@@ -57,25 +57,32 @@ public class AuthServiceImpl implements AuthService {
             throw new BadRequestException("Passwords don't match");
         }
 
-        if(!isValidRoleName(dto.role())) {
-            throw new BadRequestException("Invalid role. It can be either ROLE_USER or ROLE_ADMIN.");
-        }
-
-        List<String> roleNames = new LinkedList<>();
-        roleNames.add(RoleRepository.ROLE_USER);
-
-        if (dto.role().equalsIgnoreCase(RoleRepository.ROLE_ADMIN)) {
-            roleNames.add(RoleRepository.ROLE_ADMIN);
-        }
+        List<String> roleNames = makeRoles(dto);
 
         AppUser savedUser = userService.createUserWithRoles(dto.username(), dto.password(), roleNames);
 
         return mapper.map(savedUser, UserDto.class);
     }
 
-    private boolean isValidRoleName(String roleName) {
-        return
-                roleName.equalsIgnoreCase(RoleRepository.ROLE_ADMIN) ||
-                roleName.equalsIgnoreCase(RoleRepository.ROLE_USER);
+    private List<String> makeRoles(RegistrationDto dto) {
+        List<String> roleNames = new LinkedList<>();
+
+        switch (dto.role().toUpperCase()) {
+            case RoleRepository.ROLE_ADMIN -> {
+                roleNames.add(RoleRepository.ROLE_ADMIN);
+                roleNames.add(RoleRepository.ROLE_USER);
+            }
+            case RoleRepository.ROLE_USER -> {
+                roleNames.add(RoleRepository.ROLE_USER);
+            }
+            case RoleRepository.ROLE_CHILD -> {
+                roleNames.add(RoleRepository.ROLE_CHILD);
+            }
+            default -> {
+                throw new BadRequestException("Invalid role. It can be either ROLE_CHILD, ROLE_USER or ROLE_ADMIN.");
+            }
+        }
+
+        return roleNames;
     }
 }

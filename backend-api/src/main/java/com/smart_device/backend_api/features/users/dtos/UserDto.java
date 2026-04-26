@@ -16,6 +16,9 @@ public class UserDto extends AppDto {
     @Setter
     private String username;
 
+    @Setter
+    private boolean childAccount;
+
     private List<String> roles;
 
     public UserDto(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String username, List<GrantedAuthority> roles) {
