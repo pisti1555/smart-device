@@ -1,4 +1,4 @@
-package com.smart_device.backend_api.features.users.dtos;
+package com.smart_device.backend_api.features.images.dtos;
 
 import com.smart_device.backend_api.common.bases.AppDto;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,8 @@ import lombok.Setter;
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
-public class UserDto extends AppDto {
-    private String username;
+public class ImageDto extends AppDto {
+    private String name;
+    private String url;
+    private String type;
 }

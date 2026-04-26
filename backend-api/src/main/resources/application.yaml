@@ -4,7 +4,8 @@ server:
 
 spring:
   profiles:
-    default: dev
+    active: production
+    default: production
 
   application:
     name: backend-api
