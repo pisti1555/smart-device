@@ -42,13 +42,13 @@ public class AuthServiceImpl implements AuthService {
     public UserDto login(LoginDto dto) {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
+                    new UsernamePasswordAuthenticationToken(dto.username(), dto.password()));
         } catch (AuthenticationException e) {
             throw new UnauthorizedException("Invalid username or password.");
         }
 
         AppUser user = userRepository
-                .findByUsername(dto.getUsername())
+                .findByUsername(dto.username())
                 .orElseThrow(() -> new UnexpectedException("Something went wrong on server side."));
 
         return mapper.map(user, UserDto.class);
@@ -56,11 +56,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDto register(RegistrationDto dto) {
-        if (userRepository.existsByUsername(dto.getUsername())) {
+        if (userRepository.existsByUsername(dto.username())) {
             throw new BadRequestException("Username is already taken.");
         }
 
-        if (!dto.getPassword().equals(dto.getRepeatPassword())) {
+        if (!dto.password().equals(dto.repeatPassword())) {
             throw new BadRequestException("Passwords don't match");
         }
 
@@ -68,10 +68,10 @@ public class AuthServiceImpl implements AuthService {
                 .findByRole(RoleRepository.ROLE_USER)
                 .orElseThrow(UnexpectedException::new);
 
-        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+        String encodedPassword = passwordEncoder.encode(dto.password());
 
         AppUser user = new AppUser();
-        user.setUsername(dto.getUsername());
+        user.setUsername(dto.username());
         user.setPassword(encodedPassword);
         user.setRoles(List.of(userRole));
 

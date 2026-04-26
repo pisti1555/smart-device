@@ -13,7 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 public class AppImage extends AppEntity {
-    private String name;
     private String url;
 
     @ManyToOne

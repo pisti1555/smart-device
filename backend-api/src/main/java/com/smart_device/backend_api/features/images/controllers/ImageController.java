@@ -4,6 +4,7 @@ import com.smart_device.backend_api.common.app_models.PagedList;
 import com.smart_device.backend_api.features.images.dtos.ImageDto;
 import com.smart_device.backend_api.features.images.dtos.UploadImageDto;
 import com.smart_device.backend_api.features.images.services.ImageService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<ImageDto> uploadImage(@RequestBody UploadImageDto dto, Authentication authentication) {
+    public ResponseEntity<ImageDto> uploadImage(@RequestBody @Valid UploadImageDto dto, Authentication authentication) {
         ImageDto createdImage = imageService.save(dto, authentication.getName());
         return ResponseEntity
                 .created(URI.create("/api/images/" + createdImage.getId()))

@@ -5,6 +5,7 @@ import com.smart_device.backend_api.common.exceptions.custom_exceptions.BadReque
 import com.smart_device.backend_api.features.apps.dtos.ApplicationAddToUserDto;
 import com.smart_device.backend_api.features.apps.dtos.ApplicationDto;
 import com.smart_device.backend_api.features.apps.services.ApplicationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class ApplicationController {
     }
 
     @PostMapping
-    public ApplicationDto addApplicationToUserLibrary(@RequestBody ApplicationAddToUserDto dto, Authentication authentication) {
+    public ApplicationDto addApplicationToUserLibrary(@RequestBody @Valid ApplicationAddToUserDto dto, Authentication authentication) {
         try {
             UUID id = UUID.fromString(dto.getId());
             return applicationService.addToUser(id, authentication.getName());

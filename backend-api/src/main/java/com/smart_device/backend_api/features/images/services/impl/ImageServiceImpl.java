@@ -54,7 +54,6 @@ public class ImageServiceImpl implements ImageService {
         AppImage image = new AppImage();
 
         image.setOwnerUser(user);
-        image.setName(dto.getName());
         image.setUrl(dto.getUrl());
         image.setType(ImageType.createFromType(dto.getType()));
 

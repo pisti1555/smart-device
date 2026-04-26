@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS images (
     id UUID DEFAULT RANDOM_UUID(7) PRIMARY KEY,
     created_at TIMESTAMP DEFAULT now() NOT NULL,
     updated_at TIMESTAMP DEFAULT now() NOT NULL,
-    name VARCHAR(100) NOT NULL,
     url VARCHAR(300),
     owner_user_id UUID NOT NULL,
     type VARCHAR(50) NOT NULL,
