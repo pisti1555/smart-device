@@ -24,10 +24,16 @@ public class UserModel extends AppModel {
                 "Active profile picture: " + activeProfilePicture + '\n' +
                 "Active wallpaper: " + activeWallpaper + '\n' +
                 "Child account: " + childAccount + '\n' +
-                "Roles: [";
+                "Roles: [  ";
 
         StringBuilder sb = new StringBuilder(str);
-        roles.forEach(r -> sb.append(r + ' '));
+
+        if (roles != null && !roles.isEmpty()) {
+            roles.forEach(role -> sb
+                    .append(role).append("  ")
+            );
+        }
+
         sb.append("]\n");
 
         return sb.toString();

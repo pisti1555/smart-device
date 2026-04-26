@@ -15,7 +15,7 @@ public abstract class AppModel {
 
     @Override
     public String toString() {
-        return "ID: " + id + '\n' +
+        return "\nID: " + id + '\n' +
                 "Created at: " + createdAt + '\n' +
                 "Updated at: " + updatedAt + '\n';
     }
