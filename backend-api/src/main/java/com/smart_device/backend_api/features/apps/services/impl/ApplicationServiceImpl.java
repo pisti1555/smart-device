@@ -1,6 +1,7 @@
 package com.smart_device.backend_api.features.apps.services.impl;
 
 import com.smart_device.backend_api.common.app_models.PagedList;
+import com.smart_device.backend_api.common.exceptions.custom_exceptions.BadRequestException;
 import com.smart_device.backend_api.common.exceptions.custom_exceptions.ForbiddenException;
 import com.smart_device.backend_api.common.exceptions.custom_exceptions.NotFoundException;
 import com.smart_device.backend_api.common.exceptions.custom_exceptions.UnexpectedException;
@@ -57,6 +58,10 @@ public class ApplicationServiceImpl implements ApplicationService {
             throw new ForbiddenException("Adding this app to your library requires an adult account.");
         }
 
+        if (user.getApps().contains(foundApp)) {
+            throw new BadRequestException("This app is already installed.");
+        }
+
         foundApp.getUsers().add(user);
 
         AppApplication savedApp = applicationRepository.save(foundApp);
@@ -68,6 +73,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     public void deleteFromUser(UUID id, String username) {
         AppUser user = getUserByAuthenticationOrThrow(username);
         AppApplication foundApp = getAppOrThrowNotFound(id);
+
+        if (!user.getApps().contains(foundApp)) {
+            throw new BadRequestException("Cannot delete app, because it is not installed.");
+        }
 
         foundApp.getUsers().remove(user);
         applicationRepository.save(foundApp);

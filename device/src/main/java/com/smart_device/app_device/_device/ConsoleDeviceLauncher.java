@@ -4,9 +4,9 @@ import com.smart_device.app_device._device.authentication.Authentication;
 import com.smart_device.app_device._device.input.ConsoleInput;
 import com.smart_device.app_device._device.input.InputOption;
 import com.smart_device.app_device._device.screens.ScreenNavigator;
+import com.smart_device.app_device.features.apps.AppsFeature;
 import com.smart_device.app_device.features.auth.login.LoginFeature;
 import com.smart_device.app_device.features.images.ImageFeature;
-import com.smart_device.app_device.features.images.get_images.GetImagesFeature;
 import com.smart_device.app_device.features.users.get_profile.GetProfileFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +19,15 @@ public class ConsoleDeviceLauncher implements DeviceLauncher {
     private final LoginFeature loginFeature;
     private final GetProfileFeature getProfileFeature;
     private final ImageFeature imageFeature;
+    private final AppsFeature appsFeature;
 
     @Autowired
-    public ConsoleDeviceLauncher(Authentication authentication, LoginFeature loginFeature, GetProfileFeature getProfileFeature, ImageFeature imageFeature) {
+    public ConsoleDeviceLauncher(Authentication authentication, LoginFeature loginFeature, GetProfileFeature getProfileFeature, ImageFeature imageFeature, AppsFeature appsFeature) {
         this.authentication = authentication;
         this.loginFeature = loginFeature;
         this.getProfileFeature = getProfileFeature;
         this.imageFeature = imageFeature;
+        this.appsFeature = appsFeature;
     }
 
     @Override
@@ -56,7 +58,7 @@ public class ConsoleDeviceLauncher implements DeviceLauncher {
         switch (option) {
             case "exit" -> System.exit(0);
             case "profile" -> ScreenNavigator.navigateForward(getProfileFeature);
-            //case "apps" -> ScreenNavigator.navigateForward(screenFactory.appsScreen());
+            case "apps" -> ScreenNavigator.navigateForward(appsFeature);
             case "images" -> ScreenNavigator.navigateForward(imageFeature);
         }
     }

@@ -1,4 +1,4 @@
-package com.smart_device.app_device.features.images.get_images;
+package com.smart_device.app_device.features.apps.library;
 
 import com.smart_device.app_device._device.input.ConsoleInput;
 import com.smart_device.app_device._device.screens.ScreenNavigator;
@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GetImagesFeature implements RemoteFeature<GetImagesHandler> {
-    private final GetImagesHandler getImagesHandler;
+public class GetAppLibraryFeature implements RemoteFeature<GetAppLibraryHandler> {
+    private final GetAppLibraryHandler getAppLibraryHandler;
 
     @Autowired
-    public GetImagesFeature(GetImagesHandler getImagesHandler) {
-        this.getImagesHandler = getImagesHandler;
+    public GetAppLibraryFeature(GetAppLibraryHandler getAppLibraryHandler) {
+        this.getAppLibraryHandler = getAppLibraryHandler;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class GetImagesFeature implements RemoteFeature<GetImagesHandler> {
 
     private void printPage(int page) {
         int PAGE_SIZE = 5;
-        var result = getImagesHandler.handle(new GetImagesRequest(page, PAGE_SIZE));
+        var result = getAppLibraryHandler.handle(new GetAppLibraryRequest(page, PAGE_SIZE));
 
         if (result.isSuccess()) {
             System.out.println(result.getData());

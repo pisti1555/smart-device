@@ -23,21 +23,24 @@ public final class PagedList<T> {
         StringBuilder sb = new StringBuilder();
 
         sb.append("\nPaged list:\n")
-                .append("Page: ").append(page)
-                .append(", Size: ").append(size)
-                .append(", Total pages: ").append(totalPages)
-                .append(", Total items: ").append(totalItems).append("\n")
-                .append("Items:\n");
+                .append("Items:\n")
+                .append("------------------------------------------------------------------------------------------------\n");
 
         if (items != null && !items.isEmpty()) {
             for (var item : items) {
-                sb.append("------------------------------------------------------------------------------------------------\n");
                 sb.append(item.toString()).append("\n");
                 sb.append("------------------------------------------------------------------------------------------------\n");
             }
         } else {
             sb.append("No items.");
+            sb.append("------------------------------------------------------------------------------------------------\n");
         }
+
+        sb.append("Page: ").append(page)
+                .append(", Size: ").append(size)
+                .append(", Total pages: ").append(totalPages)
+                .append(", Total items: ").append(totalItems).append("\n")
+                .append("------------------------------------------------------------------------------------------------\n");
 
         return sb.toString();
     }
