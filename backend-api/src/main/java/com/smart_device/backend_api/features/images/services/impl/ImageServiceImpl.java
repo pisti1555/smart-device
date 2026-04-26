@@ -33,9 +33,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageDto getImage(UUID id, String username) {
-        AppImage foundImage = imageRepository
-                .findById(id)
-                .orElseThrow(() -> new NotFoundException("Image was not found."));
+        AppImage foundImage = getImageOrThrowNotFound(id);
 
         throwForbiddenIfUserIsNotOwner(foundImage, username);
 
@@ -50,7 +48,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageDto save(UploadImageDto dto, String username) {
-        AppUser user = getUserByAuthenticationOrThrow(username);
+        AppUser user = getUserByAuthenticationOrThrowUnexpected(username);
         AppImage image = new AppImage();
 
         image.setOwnerUser(user);
@@ -73,7 +71,43 @@ public class ImageServiceImpl implements ImageService {
         imageRepository.delete(foundImage);
     }
 
-    private AppUser getUserByAuthenticationOrThrow(String username) {
+    @Override
+    public void setActiveProfileImage(UUID id, AppUser user) {
+        AppImage foundImage = getImageOrThrowNotFound(id);
+
+        throwForbiddenIfUserIsNotOwner(foundImage, user.getUsername());
+
+        if (!foundImage.getType().equals(ImageType.PROFILE_PICTURE)) {
+            throw new BadRequestException("Could not set active profile image.");
+        }
+
+        user.setActiveProfilePicture(foundImage);
+
+        userRepository.save(user);
+    }
+
+    @Override
+    public void setActiveWallpaper(UUID id, AppUser user) {
+        AppImage foundImage = getImageOrThrowNotFound(id);
+
+        throwForbiddenIfUserIsNotOwner(foundImage, user.getUsername());
+
+        if (!foundImage.getType().equals(ImageType.WALLPAPER)) {
+            throw new BadRequestException("Could not set active wallpaper.");
+        }
+
+        user.setActiveWallpaper(foundImage);
+
+        userRepository.save(user);
+    }
+
+    private AppImage getImageOrThrowNotFound(UUID id) {
+        return imageRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundException("Image was not found."));
+    }
+
+    private AppUser getUserByAuthenticationOrThrowUnexpected(String username) {
         return userRepository
                 .findByUsername(username)
                 .orElseThrow(() -> new UnexpectedException("Something went wrong on server side."));
