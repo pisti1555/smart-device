@@ -7,6 +7,7 @@ import com.smart_device.backend_api.common.exceptions.custom_exceptions.*;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -74,6 +75,13 @@ public class ErrorHandlerMiddleware {
         });
 
         return new ValidationErrorResponseModel(HttpStatus.BAD_REQUEST.value(), "Validation failed.", errors);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponseModel handleAccessDeniedException(AccessDeniedException ex) {
+        var accessDeniedEx = new ForbiddenException(ex.getMessage());
+        return errorResponseProvider.provide(accessDeniedEx, "Access denied.");
     }
 
     @ExceptionHandler

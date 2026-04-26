@@ -12,5 +12,8 @@ public record RegistrationDto(
         String password,
 
         @NotBlank(message = "Password confirmation must not be blank.")
-        String repeatPassword
+        String repeatPassword,
+
+        @NotBlank(message = "Role must not be blank.")
+        String role
 ) {}
